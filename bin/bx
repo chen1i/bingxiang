@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "bingxiang"
+require "thor"
+
+class Bx < Thor
+  package_name "Bx"
+  map "-l": :list
+  map "-c": :console
+  map "-m": :mkdir
+
+  desc "mkdir <path>", "Specify folder to store images."
+  method_options force: :boolean
+  def mkdir(path)
+    
+  end
+  
+  desc "console", "Run into console mode"
+  def console
+    require "pry"
+    Pry.start
+  end
+
+  desc "list", "List files already in image folder"
+  def list
+  end
+
+  desc "fetch [URL]", "Fetch a image from ... (default www.bing.com)"
+  def fetch(url="http://www.bing.com")
+    Bingxiang.fetch_image(url)
+  end
+end
+
+Bx.start(ARGV)
